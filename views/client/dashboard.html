@@ -1,0 +1,313 @@
+<!-- BEGIN PAGE HEADER-->
+
+<h3 class="page-title"> Client Dashboard </h3>
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    
+
+    <li> <i class="fa fa-home"></i> 
+      <a href="#/dashboard.html">Home</a> 
+      <i class="fa fa-angle-right"></i> 
+    </li>
+    <li>
+      <a href="#/restaurants.html">Restaurants</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a href="#">Client Dashboard</a>
+    </li>
+    
+  </ul>
+  <a style ="float:right;" href="#/clientPromos/{{client.clientId}}"><button id="promo_management">Promo Management</button></a>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="portlet blue box">
+      <div class="portlet-title">
+        <div class="caption">Client/App Info</div>
+        <button class="fa fa-trash pull-right btn btn-danger" ng-click="deleteClient()"></button>
+        <button class="fa fa-edit pull-right btn btn-primary" data-target="#modal_client_edit" data-toggle="modal"></button>
+      </div>
+      <div class="portlet-body" id="blockui_sample_1_portlet_body">
+        <div class="info">
+          <dt>Name:</dt>
+          <dd>{{client.storeName}}</dd>
+        </div>
+        <div class="info">
+          <dt>Email:</dt>
+          <dd>{{client.clientEmail}}</dd>
+        </div>
+        <div class="info">
+          <dt>App ID:</dt>
+          <dd>{{client.bundleId}}</dd>
+        </div>
+        <div class="info">
+          <dt>Status:</dt>
+          <dd>{{client.isLive ? 'LIVE' : 'Not Live'}}</dd>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6"> 
+    <!-- BEGIN SAMPLE TABLE PORTLET-->
+    <div class="portlet box red">
+      <div class="portlet-title">
+        <div class="caption">Stores</div>
+        <button class="pull-right btn btn-danger" ng-click="editStore(0)" data-target="#modal_store_add" data-toggle="modal">Add New</button>
+      </div>
+      <div class="portlet-body">
+        <table ng-table="storeTable" class="table table-condensed table-bordered table-striped">
+          <tr ng-repeat="row in $data">
+            <td width="2%" data-title="'ID'" sortable="'storeId'">{{row.storeId}}</td>
+            <td class="pointer" data-title="'Location'" sortable="'formatted'" ng-bind-html="row.formatted.replace(',','<br>')"></td>
+            <td data-title="'Created'" sortable="'dateCreated'">{{row.dateCreated}}</td>
+            <td data-title="'Action'" id="stores_add_new_table"><div id="center_icons"><i class="fa fa-trash-o icon-lg pull-right" id="stores_trash_can" ng-click="deleteStore(row.storeId)"></i> <i class="fa fa-edit icon-lg pull-right" ng-click="editStore(row.storeId)"></i></div></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <!-- END SAMPLE TABLE PORTLET--> 
+  </div>
+</div>
+<!-- END MAIN CONTENT --> 
+
+<!--*************** MODAL CLIENT EDIT ***************-->
+<div id="modal_client_edit" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" id="client_app_info_popup_container">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">Client/App Info</h4>
+      </div>
+      <div class="modal-body form" id="client_app_info_body_contents">
+        <form action="#" class="form-horizontal form-row-seperated">
+          <div class="form-group" id="client_app_name_container">
+            <label class="col-sm-4 control-label">Client/App Name</label>
+            <div class="col-sm-8">
+              <div class="input-group"> <span class="input-group-addon"><i class="fa fa-home" id="home_icon"></i></span>
+                <input type="text" ng-model="client.storeName" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group" id="client_app_login_info_container">
+            <label class="col-sm-4 control-label">Login Info</label>
+            <div class="col-sm-8">
+              <div class="input-group"> <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" ng-model="client.clientEmail" class="form-control" placeholder="Email" />
+                <input type="password" ng-model="client.clientPassword" class="form-control" placeholder="Password" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group" ng-if="$root.auth.loginType == 1" id="client_app_info_agent_container">
+            <label class="col-sm-4 control-label">Agent</label>
+            <div class="col-sm-8">
+              <select class="form-control" ng-model="client.agentId" placeholder="Type" ng-options="agent.agentId as agent.agentName for agent in agents ">
+                <option value="">--Select Agent--</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" id="client_app_info_is_live_container">
+            <label class="col-sm-4 control-label">Is LIVE?</label>
+            <div class="col-sm-8">
+              <input bs-switch type="checkbox" switch-active="{{$root.auth.loginType==1}}" ng-model="client.isLive" class="make-switch" data-size="small" ng-true-value="1" ng-false-value="0" data-on-text="YES" data-off-text="NO">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" id="client_app_info_footer_buttons">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="saveClient()"><i class="fa fa-check"></i> Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--*************** MODAL STORE ADD ***************-->
+<div id="modal_store_add" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="new_store_popup_container">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">{{store.storeId ? 'Edit' : 'New'}} Store Info</h4>
+      </div>
+      <div class="modal-body form">
+        <form action="#" class="form-horizontal form-row-seperated">
+          <div class="location-container">
+            <div ng-if="stores.length > 0" style="display: inline-block">
+              <div style="display:inline-block" ng-if="stores && selectStore">
+                <select class="form-control" name="storeIndex" ng-model="storeIndex" ng-options="idx as c.formatted for (idx, c) in stores" ng-change="displayLocation(storeIndex)">
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="business-hour">
+              <h4>Business Hours</h4>
+              <select class="form-control" name="hours" ng-model="store.hourWeekend" required>
+                <option value=1>Edit Weekdays and Weekends</option>
+                <option value=0>Edit Each Day Individually</option>
+              </select>
+              <br />
+              <div class="hour-group row-fluid" ng-if="store.hourWeekend==1"> <i>All hours are required</i>
+                <div class="input-group col-xs-12"> <span class="input-group-addon">Weekday Start:</span>
+                  <select class="form-control" required ng-model="store.hours.weekday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('weekday', store.hours.weekday.startTime)">
+                  </select>
+                  <span class="input-group-addon">Weekday End:</span>
+                  <select class="form-control" required ng-model="store.hours.weekday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('weekday', store.hours.weekday.endTime)">
+                  </select>
+                </div>
+              </div>
+              <div class="hour-each row-fluid" ng-if="store.hourWeekend==0"> <i>All hours are required</i>
+                <div class="input-group col-xs-12"> <span class="input-group-addon">Mon Start:</span>
+                  <select class="form-control" required ng-model="store.hours.monday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('monday, store.hours.monday.startTime)">
+                  </select>
+                  <span class="input-group-addon">Mon End:</span>
+                  <select class="form-control" required ng-model="store.hours.monday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('monday, store.hours.monday.endTime)">
+                  </select>
+                </div>
+                <div class="input-group col-xs-12"> <span class="input-group-addon">Tue Start:</span>
+                  <select class="form-control" required ng-model="store.hours.tuesday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('tuesday', store.hours.tuesday.startTime)">
+                  </select>
+                  <span class="input-group-addon">Tue End:</span>
+                  <select class="form-control" required ng-model="store.hours.tuesday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('tuesday', store.hours.tuesday.endTime)">
+                  </select>
+                </div>
+                <div class="input-group col-xs-12"> <span class="input-group-addon">Wed Start:</span>
+                  <select class="form-control" required ng-model="store.hours.wednesday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('wednesday', store.hours.wednesday.startTime)">
+                  </select>
+                  <span class="input-group-addon">Wed End:</span>
+                  <select class="form-control" required ng-model="store.hours.wednesday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('wednesday', store.hours.wednesday.endTime)">
+                  </select>
+                </div>
+                <div class="input-group col-xs-12"> <span class="input-group-addon">Thur Start:</span>
+                  <select class="form-control" required ng-model="store.hours.thursday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('thursday', store.hours.thursday.startTime)">
+                  </select>
+                  <span class="input-group-addon">Thur End:</span>
+                  <select class="form-control" required ng-model="store.hours.thursday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('thursday', store.hours.thursday.endTime)">
+                  </select>
+                </div>
+                <div class="input-group col-xs-12"> <span class="input-group-addon">Fri Start:</span>
+                  <select class="form-control" required ng-model="store.hours.friday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('friday', store.hours.friday.startTime)">
+                  </select>
+                  <span class="input-group-addon">Fri End:</span>
+                  <select class="form-control" required ng-model="store.hours.friday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('friday', store.hours.friday.endTime)">
+                  </select>
+                </div>
+              </div>
+              <div class="input-group col-xs-12"> <span class="input-group-addon">Sat Start:</span>
+                <select class="form-control" required ng-model="store.hours.saturday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('saturday', store.hours.saturday.startTime)">
+                </select>
+                <span class="input-group-addon">Sat End:</span>
+                <select class="form-control" required ng-model="store.hours.saturday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('saturday', store.hours.saturday.endTime)">
+                </select>
+              </div>
+              <div class="input-group col-xs-12"> <span class="input-group-addon">Sun Start:</span>
+                <select class="form-control" required ng-model="store.hours.sunday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('sunday', store.hours.sunday.startTime)">
+                </select>
+                <span class="input-group-addon">Sun End:</span>
+                <select class="form-control" required ng-model="store.hours.sunday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('sunday', store.hours.sunday.endTime)">
+                </select>
+              </div>
+            </div>
+            <h4>Menu Settings</h4>
+            <div class="form-group row" id="menu_settings_container">
+              <div class="col-sm-4" id="tax_rate">
+                <label for="taxRate">Tax Rate:</label>
+                <div class="input-group">
+                  <input name="taxRate" type="number" step="any" class="form-control" ng-model="store.taxRate" placeholder="6" />
+                  <span class="input-group-addon">%</span> </div>
+              </div>
+              <div class="col-sm-4" id="food_prep">
+                <label for="waitingMin">Food Preparation Time (FPT)</label>
+                <div class="input-group">
+                  <input name="waitingMin" type="number" class="form-control" ng-model="store.waitingMin" placeholder="15" />
+                  <span class="input-group-addon">min</span> </div>
+              </div>
+              <div class="col-sm-4" id="FPT">
+                <label for="itemThres">FPT applies up to</label>
+                <div class="input-group">
+                  <input name="itemThres" type="number" class="form-control" ng-model="store.itemThres" placeholder="3" />
+                  <span class="input-group-addon">items</span> </div>
+              </div>
+            </div>
+            <h4>Delivery Settings</h4>
+            <div class="form-group row">
+            <div class="col-sm-4">
+              <label for="delivery">Allow Delivery:</label>
+              <select name="delivery" class="form-control" ng-model="store.delivery">
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+              </select>
+            </div>
+            <div class="col-sm-4" ng-if="store.delivery==1">
+              <label for="deliveryWait">Delivery Wait Time</label>
+              <div class="input-group">
+              <input name="deliveryWait" type="number" class="form-control" ng-model="store.deliveryWait" placeholder="40" />
+              <span class="input-group-addon" id="min_delivery_wait">min</span> </div>
+            </div>
+            <div class="col-sm-4" ng-if="store.delivery==1">
+              <label for="deliveryFee">Delivery Fee</label>
+              <div class="input-group"> <span class="input-group-addon" id="dollar_sign_delivery_fee">$</span>
+              <input name="deliveryFee" type="number" step="any" class="form-control" ng-model="store.deliveryFee" placeholder="3" />
+              </div>
+            </div>
+            </div>
+            <h4>Contact Info (required)</h4>
+            <div class="form-group row" id="contact_info_container">
+              <div class="col-sm-6">
+                <label for="contactEmail">Contact Email</label>
+                <input name="contactEmail" type="email" class="form-control" ng-model="store.contactEmail" placeholder="example@domain.com" required />
+              </div>
+              <div class="col-sm-6">
+                <label for="contactPhone">Contact Phone</label>
+                <input name="contactPhone" type="number" class="form-control" ng-model="store.contactPhone" placeholder="2151112222" required />
+              </div>
+            </div>
+            <h4 id="address_header">Address (required)</h4>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="street">Street</label>
+                <input name="street" type="text" class="form-control" ng-model="store.street" placeholder="Ex: 123 Main St." required />
+              </div>
+              <div class="col-sm-6">
+                <label for="city">City</label>
+                <input name="city" type="text" class="form-control" ng-model="store.city" placeholder="Ex: Philadelphia" />
+              </div>
+              <div class="col-sm-2">
+                <label for="state">State</label>
+                <input name="state" type="text" class="form-control" ng-model="store.state" placeholder="Ex: PA" value="PA" />
+              </div>
+              <div class="col-sm-4" id="zip_container">
+                <label for="zip">Zip</label>
+                <input name="zip" type="text" class="form-control" ng-model="store.zip" placeholder="Ex: 19107" />
+              </div>
+            </div>
+            <h4 id="store_login_header">Store Login Info (required)</h4>
+            <div class="form-group row">
+              <div class="col-sm-12" id="store_id_header">Store ID (Login username) {{store.storeId ? ": " + store.storeId : "will be generated after you submit the info"}}</div>
+              
+              <!--<div class="col-sm-6">
+                  <label for="password">New Password (at least 4 characters)</label>
+                  <input name="password" type="password" class="form-control" ng-model="store.password" />
+              </div>
+              <div class="col-sm-6">
+                  <label for="password2">Re-enter password</label>
+                  <input name="password2" type="password" class="form-control" ng-model="store.password2" />
+              </div>-->
+              <div class="col-sm-8">
+                <div class="input-group"> <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                  <input name="password" type="password" ng-model="store.password" class="form-control" placeholder="Password at least 4 characters" />
+                  <input name="password2" type="password" ng-model="store.password2" class="form-control" placeholder="Re-enter Password" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end of class="location-container"-->
+        </form>
+      </div>
+      <div class="modal-footer" id="footer_buttons">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="saveStore()"><i class="fa fa-check"></i> Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

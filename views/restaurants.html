@@ -1,0 +1,588 @@
+<!-- BEGIN PAGE HEADER-->
+
+<h3 class="page-title">My Restaurants</h3>
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li> <i class="fa fa-home"></i> 
+      <a href="#/dashboard.html">Home</a> 
+      <i class="fa fa-angle-right"></i> 
+    </li>
+    <li> <a href="#">Restaurants</a> </li>
+  </ul>
+  <!--
+  <div class="page-toolbar">
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+        Actions <i class="fa fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu pull-right" role="menu">
+        <li>
+          <a href="#">
+            <i class="icon-user"></i> New User </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-present"></i> New Event <span class="badge badge-success">4</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-basket"></i> New order </a>
+        </li>
+        <li class="divider">
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-flag"></i> Pending Orders <span class="badge badge-danger">4</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-users"></i> Pending Users <span class="badge badge-warning">12</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  --> 
+</div>
+<!-- END PAGE HEADER--> 
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+  <div class="col-md-12"> 
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet box blue-hoki">
+      <div class="portlet-title" id="restaurant_banner">
+        <div class="caption"> <i class="fa fa-globe"></i>Restaurants </div>
+        <!-- cham, Call Form Wizard modal when 'Add New' button clicked --> 
+        <!--<button class="pull-right btn btn-primary">Add New</button> -->
+        <button class="pull-right btn btn-primary" data-target="#modal_restaurant_add" data-toggle="modal" id="add_new_button">Add New</button>
+        <!--
+				<div class="actions">
+					<div class="btn-group">
+						<a class="btn default" href="#" data-toggle="dropdown">
+						Columns <i class="fa fa-angle-down"></i>
+						</a>
+
+						<div id="sample_4_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+							<label><input type="checkbox" checked data-column="0">ID</label>
+							<label><input type="checkbox" checked data-column="1">Restaurnat Name</label>
+							<label><input type="checkbox" checked data-column="2">Status</label>
+							<label><input type="checkbox" checked data-column="3">Created</label>
+							<label><input type="checkbox" checked data-column="4">Menu</label>
+						</div>
+					</div>
+				</div>
+				--> 
+      </div>
+      <div class="portlet-body">
+        <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+          <!--cham commented, {{$data}} -->
+          <tr ng-repeat="row in $data">
+            <td width="2%" data-title="'ClientId'" sortable="'clientId'">{{row.clientId}}</td>
+            <td class="pointer" ng-click="nav('clientDashboard', row.clientId)" data-title="'Store Name'" sortable="'storeName'" filter="{storeName: 'text'}"><span class="link">{{row.storeName}}</span></td>
+            <td data-title="'Date Created'">{{row.dateCreated}}</td>
+            <td data-title="'Menu'"><button class="btn btn-info" ng-click="nav('menu', row.clientId)">Edit</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET--> 
+  </div>
+</div>
+
+<!--*************** MODAL RESTAURANT ADD ***************-->
+<div id="modal_restaurant_add" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content"> 
+      <!-- cham, BEGIN OF FORM WIZARD -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet box blue" id="form_wizard_1">
+            <div class="portlet-title">
+              <div class="caption"> <i class="fa fa-gift"></i> Create A Restaurant - <span class="step-title"> Step 1 of 4 </span> </div>
+              <div class="tools hidden-xs">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+              </div>
+            </div>
+            <div class="portlet-body form">
+              <form action="#" class="form-horizontal" id="submit_form" method="POST" novalidate>
+              <div class="form-wizard">
+              <div class="form-body">
+              <ul class="nav nav-pills nav-justified steps">
+                <li class="active"> <a href="javascript:void(0)"  ng-click="navTab(1, $event)" data-toggle="tab" class="step" aria-expanded="true"> <span class="number"> 1 </span> <span class="desc"> <i class="fa fa-check"></i> Client Info Setup </span> </a> </li>
+                <li> <a href="javascript:void(0)" ng-click="navTab(2, $event)"  data-toggle="tab" class="step"> <span class="number"> 2 </span> <span class="desc"> <i class="fa fa-check"></i> Store Info Setup I </span> </a> </li>
+                <li> <a href="javascript:void(0)" ng-click="navTab(3, $event)" data-toggle="tab" class="step active"> <span class="number"> 3 </span> <span class="desc"> <i class="fa fa-check"></i> Store Info Setup II </span> </a> </li>
+                <li> <a href="javascript:void(0)" ng-click="navTab(4, $event)" data-toggle="tab" class="step"> <span class="number"> 4 </span> <span class="desc"> <i class="fa fa-check"></i> Confirm </span> </a> </li>
+              </ul>
+              <div id="bar" class="progress progress-striped" role="progressbar">
+                <div class="progress-bar progress-bar-success" style="width: 0%;"> </div>
+              </div>
+              <div class="tab-content">
+              <div class="alert alert-danger required display-none">
+                <button class="close" data-dismiss="alert"></button>
+                Error. Please check all fields are filled with valid values. </div>
+              <div class="alert alert-success display-none">
+                <button class="close" data-dismiss="alert"></button>
+                Your form validation is successful! </div>
+              <div class="tab-pane active" id="tab1">
+              <div class="centered_container">
+              <!--This will center all the info (the fields and text in the pop-up)-->
+              <h3 class="block">Provide your general information</h3>
+              <form action="#" class="form-horizontal form-row-seperated">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Store Name</label>
+                  <div class="col-sm-8">
+                    <div class="input-group"> <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                      <input name="storeName" type="text" ng-model="client.storeName" class="form-control" required />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Login Info</label>
+                  <div class="col-sm-8">
+                    <div class="input-group"> <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                      <input name="clientEmail" type="text" ng-model="client.clientEmail" class="form-control" placeholder="example@domain.com" />
+                      <input name="clientPassword" type="password" ng-model="client.clientPassword" class="form-control" placeholder="Password at least 4 characters" />
+                      <input name="clientPassword2" type="password2" ng-model="client.clientPassword2" class="form-control" placeholder="Re-enter Password" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group" ng-if="$root.auth.loginType == 1">
+                  <label class="col-sm-4 control-label">Agent</label>
+                  <div class="col-sm-8">
+                    <select class="form-control" ng-model="client.agentId" placeholder="Type" ng-options="agent.agentId as agent.agentName for agent in agents ">
+                      <option value="">--Select Agent--</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!--end "centered_container"--> 
+          </div>
+          <div class="tab-pane" id="tab2">
+            <div class="location-container">
+              <h3 class="block">Store business information</h3>
+              <!--cham, copied from old portal storeEdit.html -->
+              
+              <div ng-if="stores.length > 0" style="display: inline-block">
+                <div style="display:inline-block" ng-if="stores && selectStore">
+                  <select class="form-control" name="storeIndex" ng-model="storeIndex" ng-options="idx as c.formatted for (idx, c) in stores" ng-change="displayLocation(storeIndex)">
+                  </select>
+                </div>
+              </div>
+              <span class="btn btn-primary btn-small" ng-if="selectStore" ng-click="addLocation()">Add Another Location + </span> <span class="btn btn-warning btn-small pull-right" ng-if="!selectStore && stores" ng-click="selectStoreFnc()" >Select Store</span> <br>
+              <div class="business-hour">
+                <h4>Business Hours test</h4>
+                <select class="form-control" id="business_hours_drop_down" name="hours" ng-model="store.hourWeekend" required>
+                  <option value=1>Edit Weekdays and Weekends</option>
+                  <option value=0>Edit Each Day Individually</option>
+                </select>
+                <div class="hour-group row-fluid" ng-if="store.hourWeekend==1"> <i>All hours are required</i>
+                  <div class="input-group col-xs-12"> <span class="input-group-addon">Weekday Start:</span>
+                    <select class="form-control" required ng-model="store.hours.weekday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('weekday', store.hours.weekday.startTime)">
+                    </select>
+                    <span class="input-group-addon">Weekday End:</span>
+                    <select class="form-control" required ng-model="store.hours.weekday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('weekday', store.hours.weekday.endTime)">
+                    </select>
+                  </div>
+                </div>
+                <div class="hour-each row-fluid" ng-if="store.hourWeekend==0"> <i>All hours are required</i>
+                  <div class="input-group col-xs-12"> <span class="input-group-addon">Mon Start:</span>
+                    <select class="form-control" required ng-model="store.hours.monday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('monday, store.hours.monday.startTime)">
+                    </select>
+                    <span class="input-group-addon">Mon End:</span>
+                    <select class="form-control" required ng-model="store.hours.monday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('monday, store.hours.monday.endTime)">
+                    </select>
+                  </div>
+                  <div class="input-group col-xs-12"> <span class="input-group-addon">Tue Start:</span>
+                    <select class="form-control" required ng-model="store.hours.tuesday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('tuesday', store.hours.tuesday.startTime)">
+                    </select>
+                    <span class="input-group-addon">Tue End:</span>
+                    <select class="form-control" required ng-model="store.hours.tuesday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('tuesday', store.hours.tuesday.endTime)">
+                    </select>
+                  </div>
+                  <div class="input-group col-xs-12"> <span class="input-group-addon">Wed Start:</span>
+                    <select class="form-control" required ng-model="store.hours.wednesday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('wednesday', store.hours.wednesday.startTime)">
+                    </select>
+                    <span class="input-group-addon">Wed End:</span>
+                    <select class="form-control" required ng-model="store.hours.wednesday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('wednesday', store.hours.wednesday.endTime)">
+                    </select>
+                  </div>
+                  <div class="input-group col-xs-12"> <span class="input-group-addon">Thur Start:</span>
+                    <select class="form-control" required ng-model="store.hours.thursday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('thursday', store.hours.thursday.startTime)">
+                    </select>
+                    <span class="input-group-addon">Thur End:</span>
+                    <select class="form-control" required ng-model="store.hours.thursday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('thursday', store.hours.thursday.endTime)">
+                    </select>
+                  </div>
+                  <div class="input-group col-xs-12"> <span class="input-group-addon">Fri Start:</span>
+                    <select class="form-control" required ng-model="store.hours.friday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('friday', store.hours.friday.startTime)">
+                    </select>
+                    <span class="input-group-addon">Fri End:</span>
+                    <select class="form-control" required ng-model="store.hours.friday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('friday', store.hours.friday.endTime)">
+                    </select>
+                  </div>
+                </div>
+                <div class="input-group col-xs-12"> <span class="input-group-addon">Sat Start:</span>
+                  <select class="form-control" required ng-model="store.hours.saturday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('saturday', store.hours.saturday.startTime)">
+                  </select>
+                  <span class="input-group-addon">Sat End:</span>
+                  <select class="form-control" required ng-model="store.hours.saturday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('saturday', store.hours.saturday.endTime)">
+                  </select>
+                </div>
+                <div class="input-group col-xs-12"> <span class="input-group-addon">Sun Start:</span>
+                  <select class="form-control" required ng-model="store.hours.sunday.startTime" ng-options="c as c for c in timeslot" ng-change="changeHour('sunday', store.hours.sunday.startTime)">
+                  </select>
+                  <span class="input-group-addon">Sun End:</span>
+                  <select class="form-control" required ng-model="store.hours.sunday.endTime" ng-options="c as c for c in timeslot" ng-change="changeHour('sunday', store.hours.sunday.endTime)">
+                  </select>
+                </div>
+              </div>
+              <h4>Menu Settings</h4>
+              <div class="form-group row">
+                <div class="col-sm-4">
+                  <label for="taxRate">Tax Rate:</label>
+                  <div class="input-group">
+                    <input name="taxRate" type="number" step="any" class="form-control" ng-model="store.taxRate" placeholder="6" id="tax_rate_field"/>
+                    <span class="input-group-addon" id="percent_sign">%</span> </div>
+                </div>
+                <div class="col-sm-4">
+                  <label for="waitingMin">Food Preparation Time (FPT)</label>
+                  <div class="input-group">
+                    <input name="waitingMin" type="number" class="form-control" ng-model="store.waitingMin" placeholder="15" id="food_prep_field"/>
+                    <span class="input-group-addon" id="min_food_prep">min</span> </div>
+                </div>
+                <div class="col-sm-4" id="fpt_applies_to_container">
+                  <label for="itemThres">FPT applies up to</label>
+                  <div class="input-group">
+                    <input name="itemThres" type="number" class="form-control" ng-model="store.itemThres" placeholder="3" id="fpt_applies_field"/>
+                    <span class="input-group-addon" id="items_fpt">items</span> </div>
+                </div>
+              </div>
+              <h4>Delivery Settings</h4>
+              <div class="form-group row">
+                <div class="col-sm-4">
+                  <label for="delivery">Allow Delivery:</label>
+                  <select name="delivery" class="form-control" ng-model="store.delivery">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                  </select>
+                </div>
+                <div class="col-sm-4" ng-if="store.delivery==1">
+                  <label for="deliveryWait">Delivery Wait Time</label>
+                  <div class="input-group">
+                    <input name="deliveryWait" type="number" class="form-control" ng-model="store.deliveryWait" placeholder="40" />
+                    <span class="input-group-addon" id="min_delivery_wait">min</span> </div>
+                </div>
+                <div class="col-sm-4" ng-if="store.delivery==1">
+                  <label for="deliveryFee">Delivery Fee</label>
+                  <div class="input-group"> <span class="input-group-addon" id="dollar_sign_delivery_fee">$</span>
+                    <input name="deliveryFee" type="number" step="any" class="form-control" ng-model="store.deliveryFee" placeholder="3" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end of class="location-container"--> 
+          </div>
+          <!--end of tab2-->
+          <div class="tab-pane" id="tab3">
+            <div class="store_info_II_container"> <br>
+              <h3 class="block">Store information continued...</h3>
+              <!--cham, copied from old portal storeEdit.html-->
+              
+              <h4>Contact Info (required)</h4>
+              <div class="form-group row">
+                <div class="col-sm-6">
+                  <label for="contactEmail">Contact Email</label>
+                  <input name="contactEmail" type="email" class="form-control" ng-model="store.contactEmail" placeholder="example@domain.com" required />
+                </div>
+                <div class="col-sm-6" id="contact_phone">
+                  <label for="contactPhone">Contact Phone</label>
+                  <input name="contactPhone" type="number" class="form-control" ng-model="store.contactPhone" placeholder="2151112222" required />
+                </div>
+              </div>
+              <h4>Address (required)</h4>
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label for="street">Street</label>
+                  <input name="street" type="text" class="form-control" ng-model="store.street" placeholder="Ex: 123 Main St." required />
+                </div>
+                <div class="col-sm-6">
+                  <label for="city">City</label>
+                  <input name="city" type="text" class="form-control" ng-model="store.city" placeholder="Ex: Philadelphia" id="city_field"/>
+                </div>
+                <div class="col-sm-2">
+                  <label for="state">State</label>
+                  <input name="state" type="text" class="form-control" ng-model="store.state" placeholder="Ex: PA" value="PA" id="state_field"/>
+                </div>
+                <div class="col-sm-4" id="zip">
+                  <label for="zip">Zip</label>
+                  <input name="zip" type="text" class="form-control" ng-model="store.zip" placeholder="Ex: 19107" />
+                </div>
+              </div>
+   <h4>Store Login Info (required)</h4>
+              <div class="form-group row">
+                <div class="col-sm-12">Store ID (Login username) {{store.storeId ? ": " + store.storeId : "will be generated after you submit the info"}}</div>
+                <!--<div class="col-sm-6">
+                                <label for="password">New Password (at least 4 characters)</label>
+                                <input name="password" type="password" class="form-control" ng-model="store.password" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="password2">Re-enter password</label>
+                                <input name="password2" type="password" class="form-control" ng-model="store.password2" />
+                            </div>-->
+                <div class="col-sm-8">
+                  <div class="input-group"> <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input name="password" type="password" ng-model="store.password" class="form-control" placeholder="Password at least 4 characters" />
+                    <input name="password2" type="password" ng-model="store.password2" class="form-control" placeholder="Re-enter Password" />
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <!--end of tab3--> 
+          </div>
+          <div class="tab-pane" id="tab4">
+  <div class="confirm_container">          <h3 class="block">Confirm your restaurant information</h3>
+            <h4 class="form-section">Client Info</h4>
+            
+            <div class="form-group">
+              <label class="control-label col-md-3">Store Name:</label>
+              <div class="col-md-4">
+                <p class="form-control-static" data-display="storeName">{{client.storeName}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Client Email:</label>
+              <div class="col-md-4">
+                <p class="form-control-static" data-display="clientEmail">{{client.clientEmail}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Agent:</label>
+              <!--cham, need to display agent name-->
+              <div class="col-md-4">
+                <p class="form-control-static">{{client.agentId}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Is Live:</label>
+              <!--cham, need to display yes/no-->
+              <div class="col-md-4">
+                <p class="form-control-static">{{client.isLive}} </p>
+              </div>
+            </div>
+            <h4 class="form-section">Business Hours</h4>
+            <div class="form-group">
+              <label class="control-label col-md-3">Weekday Start:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.weekday.startTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Weekday End:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.weekday.endTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Monday Start:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.monday.startTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Monday End:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.monday.endTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Tuesday Start:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.tuesday.startTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Tuesday End:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.tuesday.endTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Wednesday Start:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.wednesday.startTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Wednesday End:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.wednesday.endTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Thursday Start:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.thursday.startTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Thursday End:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.thursday.endTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Friday Start:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.friday.startTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Friday End:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.friday.endTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Saturday Start:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.saturday.startTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Saturday End:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.saturday.endTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Sunday Start:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.sunday.startTime}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Sunday End:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.hours.sunday.endTime}} </p>
+              </div>
+            </div>
+            <h4 class="form-section">Menu Setting</h4>
+            <div class="form-group">
+              <label class="control-label col-md-3">Tax Rate (%):</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.taxRate}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Food Preparation Time (min.):</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.waitingMin}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">FPT Up To (#items):</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.itemThres}} </p>
+              </div>
+            </div>
+            <h4 class="form-section">Delivery Setting</h4>
+            <div class="form-group">
+              <label class="control-label col-md-3">Store Delivery:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.delivery}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Delivery Wait Time (min.):</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.deliveryWait}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Delivery Fee ($):</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.deliveryFee}} </p>
+              </div>
+            </div>
+            <h4 class="form-section">Contact Information</h4>
+            <div class="form-group">
+              <label class="control-label col-md-3">Contact Email:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.contactEmail}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Contact Phone:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.contactPhone}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Street:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.street}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">City:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.city}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">State:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.state}} </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Zip:</label>
+              <div class="col-md-4">
+                <p class="form-control-static">{{store.zip}} </p>
+              </div>
+            </div>
+            <br>
+            <!--
+                        <div class="row-fluid">
+                        
+                            <a ng-click="removeClient()" class="pull-right btn btn-danger" ng-show="{{!isNew}}">Remove Completely</a>
+                            <button type="submit" class="btn btn-primary" ng-click="saveNewClient()" ng-disabled="form.$invalid || isUnchanged(user)">Submit</button>
+                            <a href="javascript:history.back()" class="btn btn-warning">Cancel</a>
+                        </div>
+                        --> 
+          </div>
+          </div><!--end confirm_container-->
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-9"> 
+            <!--To Do Need to disable Back button when the step is 1 and enable for other steps --> 
+            <a href="javascript:void(0)" class="btn default button-previous" ng-click="navTab(-1)"> <i class="m-icon-swapleft m-icon-white "></i> Back </a> <a href="javascript:void(0)" class="btn blue button-next" ng-click="saveTab($event)"> Continue <i class="m-icon-swapright m-icon-white"></i> </a> 
+            <!--cham, commented out, submit button will be on tab4 confirmation page only
+                        <a href="javascript:void(0)" class="btn green button-submit" >
+                        Submit <i class="m-icon-swapright m-icon-white"></i>
+                        </a> --> 
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+</div>
+<!-- END OF FORM WIZARD -->
+</form>
+</div>
+</div>
+</div>
+<!-- END MAIN CONTENT --> 
+<!-- BEGIN MAIN JS --> 
+<script>
+TableAdvanced.init();
+</script> 
+<!-- END MAIN JS --> 

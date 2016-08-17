@@ -1,0 +1,272 @@
+<!-- BEGIN PAGE HEADER-->
+
+<style> /*align table contents to left only on this page*/
+tbody td {
+text-align:left;
+}
+</style>
+
+<h3 class="page-title"> Menu Setup</small> </h3>
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li> <i class="fa fa-home"></i> <a href="#/dashboard.html">Home</a> <i class="fa fa-angle-right"></i> </li>
+    <li> <a href="#/restaurants">Menu Setup</a> </li>
+  </ul>
+</div>
+<!-- END PAGE HEADER--> 
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+  <div class="col-md-6" ng-repeat="group in menu" class="categoryGroup_{{group.categoryGroupId}}">
+  <div class="portlet blue box">
+    <div class="portlet-title">
+      <div class="caption">{{group.categoryGroupName}}</div>
+      <button class="fa fa-trash pull-right btn btn-danger" ng-click="deleteCategoryGroup(group)" data-toggle="modal"></button>
+      <button class="fa fa-edit pull-right btn btn-primary" ng-click="editCategoryGroup(group, group.categoryGroupId)" data-target="#modal_category_group_edit" data-toggle="modal"></button>
+    </div>
+    <div class="portlet-body menutable">
+      <table class="table table-condensed table-bordered table-striped">
+        <tr ng-repeat="row in group.categories">
+          <td class="category_{{row.categoryId}}"><i class="fa fa-trash-o icon-lg pull-right" ng-click="deleteCategory(row)"></i> 
+            <!--cham deleteCategory--><i class="fa fa-edit icon-lg pull-right" ng-click="editCategory(row)"></i> <span class="pointer" ng-click="toggleCategory(row.categoryId)"> <i class="fa fa-folder icon-state-warning icon-lg"></i> {{row.categoryName}}</span>
+            <ul class="items" style="display:none">
+              
+
+
+
+<div class="food_items">              
+              <li ng-repeat="item in row.items" class="item_{{item.itemId}}"> <i class="pull-right fa fa-trash-o icon-lg" ng-click="deleteItem(item)"></i> 
+                <!--cham deleteItem--><i class="pull-right fa fa-edit icon-lg" ng-click="editItem(item)"></i> <i class="glyphicon glyphicon-cutlery"></i>{{item.itemName}} </li>
+</div><!--end class food items-->                
+                
+                
+                
+              <li class="addItem" ng-click="editItem(0, row.categoryId)"><i class="fa fa-plus icon-lg icon-state-success"></i><span>(ADD NEW ITEM)</span></li>
+            </ul></td>
+        </tr>
+        <tr>
+          <td><span class="addItem" ng-click="editCategory(0, group.categoryGroupId)"><i class="fa fa-plus icon-lg icon-state-success"></i><span> (ADD NEW CATEGORY)</span></span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<button class="pull-right btn btn-primary" id ="add_new_group_btn" ng-click="editCategoryGroup(group, group.categoryGroupId)" data-target="#modal_category_group_edit" data-toggle="modal">Add New Group</button>
+</div>
+<!--
+*
+*
+*
+*
+--> 
+<!--*************** MODAL CATEGORY GROUP EDIT ***************-->
+<div id="modal_category_group_edit" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" id="category_group_setting_window_body">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">{{categoryGroup.categoryGroupId ? '' : 'New'}} Category Group Setting</h4>
+      </div>
+      <div class="modal-body form">
+        <form action="#" class="form-horizontal form-row-seperated">
+          <div class="form-group" id="category_group_form_container">
+            <label class="col-sm-4 control-label">Category Group Name</label>
+            <div class="col-sm-8">
+              <input type="text" ng-model="categoryGroup.categoryGroupName" class="form-control input-block-level categoryGroupName" />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="saveCategoryGroup(categoryGroup.categoryGroupId)"><i class="fa fa-check"></i> Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+*
+*
+*
+*
+*
+--> 
+<!--*************** MODAL CATEGORY EDIT ***************-->
+<div id="modal_category_edit" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">{{category.categoryId ? '' : 'New'}} Category Setting</h4>
+      </div>
+      <div class="modal-body form" id="new_category_window_body">
+        <form action="#" class="form-horizontal form-row-seperated">
+          <div class="form_group_container">
+            <div class="form-group" id="category_name_container">
+              <label class="col-sm-4 control-label">Category Name</label>
+              <div class="col-sm-8">
+                <input type="text" ng-model="category.categoryName" class="form-control input-block-level categoryName" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Category Group</label>
+              <div class="col-sm-8">
+                <select class="form-control" ng-model="category.categoryGroupId" placeholder="Type" ng-options="group.categoryGroupId as group.categoryGroupName for group in menu ">
+                  <option value="">--Select Category Group--</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!--end div class "form_group_container"-->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="saveCategory(category.categoryId)"><i class="fa fa-check"></i> Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+*
+*
+*
+*
+*
+--> 
+<!--*************** MODAL ITEM EDIT ***************-->
+<div id="modal_item_edit" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="new_item_settings_window">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">{{item.itemId ? '' : 'New'}} Item Settings</h4>
+      </div>
+      <div class="modal-body form">
+        <form action="#" class="form-horizontal form-row-seperated itemform">
+          <div class="row">
+            <div class="col-sm-6" id="new_item_settings_container">
+              <div class="form-group" id="new_item_settings_item_name">
+                <label class="col-xs-4 control-label">Item Name</label>
+                <div class="col-xs-8">
+                  <input type="text" ng-model="item.itemName" class="form-control input-block-level itemName" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-xs-4 control-label">Item Description</label>
+                <div class="col-xs-8">
+                  <input type="text" ng-model="item.itemDescription" class="form-control input-block-level" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-xs-4 control-label">Category</label>
+                <div class="col-xs-8">
+                  <select class="form-control" ng-model="item.categoryId" placeholder="Type">
+                    <option ng-repeat="option in categoryOptions" ng-disabled="option.disabled" ng-value="option.categoryId" ng-selected="item.categoryId && item.categoryId == option.categoryId">{{option.disabled && option.categoryName ? '--' + option.categoryName ++ '--' : option.categoryName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-xs-4 control-label">Price</label>
+                <div class="col-xs-8">
+                  <div class="input-group"> <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                    <input type="text" ng-model="item.price" class="form-control" placeholder="Ex: 9.95" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-xs-4 control-label">Image</label>
+                <div class="col-xs-8"> 
+                  <!--
+                  <div class="image-display" ng-if="item.imagePath || item.imageFile" style="height: 100px;">
+                    <img src="{{item.imageFile}}" height="100">
+                  </div>
+            
+
+                  <div class="row fileupload-buttonbar">
+                    <div class="col-lg-7">
+                      <span class="btn fileinput-button">
+                        <input type="file" class="image-file" name="files[]" accept="image/*"> </span>
+                      <span class="fileupload-process"> </span>
+                    </div>
+                    
+                  </div> 
+               -->
+                  <div ng-if="!imageEditMode"> <img ng-if="item.imagePath" height="100" ng-src="{{item.imageUrl}}?{{$root.randomVar}}" /> </div>
+                  <div ng-show="!itemImage || 1">Select item's new image: (optional)
+                    <input type="file" id="fileInput" />
+                  </div>
+                  <div ng-show="itemImage" style="max-width: 300px"> <img src=""> </div>
+                  <div ng-if="imageEditMode">
+                    <div class="cropArea col-sm-6">
+                      <img-crop image="myImage" result-image="myCroppedImage" result-image-format="image/jpeg" area-type="square" on-change="cropImage($dataURI)" result-image-size=640 result-image-quality=0.7></img-crop>
+                    </div>
+                    <div class="crop-result"><img ng-src="{{myCroppedImage}}" height="100" />
+                      <div>Actual image to be saved</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-xs-4 control-label">Import Menu Options</label>
+                <div class="col-xs-8">
+                  <select class="form-control" ng-model="importId" ng-change="importOption()">
+                    <option value="">--Import Option from Menu Item</option>
+                    <option ng-repeat="obj in itemOptions" ng-value="obj.optionObj">{{obj.itemName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group option-content" style="margin-right: 10px">
+                <div style="height: 350px; width: 100%; overflow: auto">
+                  <div class="panel panel-default" ng-repeat="group in options">
+                    <div class="panel-heading"> <i class="fa fa-trash pull-right" ng-click="deleteOptionGroup($index)"></i> <i class="fa fa-edit pull-right" ng-click="toggleOptionGroup($event)"></i> <span>{{options[$index].name}}</span> 
+                      <!--<div>Name <input type="text" ng-model="options[$index].name"></div>-->
+                      <div class="form-group optionHeader">
+                        <div><span>Name:</span>
+                          <input style="width: 130px" ng-model="options[$index].name" type="text">
+                        </div>
+                        <div><span>Main Option:</span>
+                          <input bs-switch type="checkbox" ng-model="options[$index].main" class="make-switch" data-size="small" ng-true-value="1" ng-false-value="0" data-on-text="YES" data-off-text="NO">
+                        </div>
+                        <div><span>Multi-Select:</span>
+                          <input bs-switch type="checkbox" type="radio" ng-model="options[$index].multi" class="make-switch" data-size="small" ng-true-value=1 ng-false-value=0 data-on-text="YES" data-off-text="NO">
+                        </div>
+                        <div ng-if="options[$index].multi"><span>Max Select</span>
+                          <select ng-model="options[$index].max">
+                            <option value=0>0</option>
+                            <option value=1>1</option>
+                            <option value=2>2</option>
+                            <option value=3>3</option>
+                            <option value=4>4</option>
+                            <option value=5>5</option>
+                            <option value=6>6</option>
+                            <option value=7>7</option>
+                            <option value=8>8</option>
+                            <option value=9>9</option>
+                            <option value=10>10</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel-body">
+                      <div ng-repeat="option in options[$index].options">
+                        <input type="text" placeholder="ex: pepperoni" class="name" ng-model="options[$parent.$index].options[$index].n">
+                        $
+                        <input type="text" placeholder="1.50" class="price" ng-model="options[$parent.$index].options[$index].p">
+                        <i class="fa fa-trash" ng-click="deleteOption($parent.$index, $index)"></i> </div>
+                      <div class="link" ng-click="addOption($index)"><i class="fa fa-plus"></i> Add new option</div>
+                    </div>
+                  </div>
+                  <div class="link" ng-click="addOptionGroup()"><i class="fa fa-plus"></i> Add new option group</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="saveItem(category.categoryId)"><i class="fa fa-check"></i> Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

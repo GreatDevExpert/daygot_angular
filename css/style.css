@@ -1,0 +1,837 @@
+.login.page-header.navbar.navbar-fixed-top.ng-scope { /*remove navigation bar on login screen (It was appearing when browser was resized)*/
+    background-color: #EEEEEE !important;
+    box-shadow: none !important;
+}
+
+body.page-boxed {
+    background-color:#DAE6FB !important; /*entire page background*/ 
+}
+
+.page-content-wrapper { /*light drop shadow around content container*/
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(217,217,217,1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(217,217,217,1);
+    box-shadow: 0px 0px 5px 1px #ccc;
+}
+
+.logo { /*LOGIN SCREEN LOGO*/
+    padding-top: 50px !important; /*override bootstrap*/
+    margin-bottom: -30px !important;
+}
+
+#login_content { /*curve corners on login screen box*/
+	-webkit-border-radius: 6 !important;
+    -moz-border-radius: 6 !important;
+    border-radius: 6px !important;
+}
+
+#copyright_login_screen { /*space underneath copyright on login screen*/
+	padding-bottom: 20px;
+}
+
+/*login screen media queries for mobile screen size*/
+@media screen and (max-width:440px) {
+	div#login_content { /*space between top logo and window*/
+    	margin-top: 20px;
+	}
+	
+	#login_as_field {
+		width:220px;
+	}
+	
+	#login_email_field, #login_password_field {
+		width:220px;
+	}
+	
+	#bottom_login_container { /*create space between "forgot password" and bottom line*/
+		padding-bottom:35px !important; /*override bootstrap*/
+	}
+}
+
+.table-scrollable {
+  /*height: 200px;*/
+  overflow-y: scroll;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.disabledOption {
+  margin-top: 10px;
+  color: #ccc;
+}
+
+
+/* DT DD */
+
+div.info {
+  margin: 10px 0;
+}
+
+dt,
+dd {
+  display: inline-block;
+}
+
+dt {
+  width: 30%;
+}
+
+.modal-footer { /*footer at bottom of pop-up boxes*/
+	text-align:center;
+	border-top:none;
+}
+
+.page-container-bg-solid .page-title,
+h3.page-title.ng-scope { /*page title tracking (letter spacing)*/
+ letter-spacing: 6px;
+}
+
+
+/*Dashboard///////////////////////////////////////////////////////////////////*/
+
+/*Blog i frame////////////////////////////////////////////////////////////////*/
+#blog_frame { /*iframe positioned inside container*/
+	width:100%; 
+	height:457px; 
+	max-height:100%;
+	margin-top:-128px;
+	border:none;
+}
+
+#iframe_container { /*container that hides unnecessary parts of iframe*/
+	overflow:hidden;
+}
+
+@media screen and (max-width:1199px) { /*reposition iframe inside div when the browser is resized. Blog needs to be responsive with break points*/
+	#blog_frame {
+		margin-top: -128px;
+    	margin-left: -50px;
+    	width: 353px;
+		height:427px;
+	}
+}
+
+@media screen and (max-width:991px) {
+	#blog_frame {
+		height:457px;
+		width:455px;
+		margin-left:-15px;
+		margin-top:-128px;
+	}
+}
+
+@media screen and (max-width:933px) {
+	#blog_frame { 
+		height:457px;
+	}
+}
+
+@media screen and (max-width:844px) {
+	#blog_frame { 
+		height:427px;
+	}
+}
+
+@media screen and (max-width:767px) {
+	#blog_frame { 
+		width:722px;
+		margin-top:-198px;
+	}
+}
+
+@media screen and (max-width:435px) {
+	#blog_frame { 
+		width:390px;
+		margin-top:-128px;
+	}
+}
+/*End blog i frame////////////////////////////////////////////////////////////*/
+
+/* HEADER */
+.container.auth .login-content{
+  display:none;
+}
+
+/* PORTLET HEADER BUTTON */
+
+.portlet-title .btn {
+  margin-top: 5px;
+  padding: 5px 15px;
+}
+
+/*"promo management" button on client dashboard*/
+button#promo_management {
+	background-color:white;
+	border:none;
+	margin-top: 7px;
+    margin-right: 7px;
+	-webkit-border-radius: 6 !important;
+  -moz-border-radius: 6 !important;
+  border-radius: 6px !important;
+}
+
+.btn:not(.dropdown-toggle) { /*round button corners except for "Actions" drop down (top right)*/
+  -webkit-border-radius: 6 !important;
+  -moz-border-radius: 6 !important;
+  border-radius: 6px !important;
+}
+
+button.btn.btn-fit-height.grey-salt.dropdown-toggle { /*make "Actions" button touch bottom of banner and round corners*/
+    height: 39px;
+	-webkit-border-radius: 0px !important; /*override bootstrap for rounded corners*/
+  	-moz-border-radius: 0px !important;
+  	border-radius: 0px !important;
+}
+
+#add_new_button { /*"Add New" button (Restaurants)*/
+	color:white;
+	background-color: #f15a29; /* Old browsers */
+	border-style:solid;
+	border-width:1px;
+	border-color:white;
+	margin-top:none;
+}
+
+button.btn.btn-success.uppercase:hover { /*login button becomes lighter on mouse hover*/
+    opacity: .5;
+}
+
+button.btn.btn-info { /*"Edit" buttons*/
+    background-color: #606060;
+	width: 55px;
+    margin: 0 auto;
+}
+
+.btn:hover {
+	opacity:.5;
+}
+
+.portlet-body.menutable {
+  height: 350px;
+  overflow: auto;
+}
+
+.portlet-body.menutable td {
+  font-size: 1.1em;
+}
+
+.portlet-body.menutable td ul {
+  margin: 5px -2px;
+  padding: 0 0 0 15px;
+}
+
+.portlet-body.menutable td ul li {
+  margin: 10px 0;
+  list-style: none;
+}
+
+.portlet-body.menutable td i {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.portlet-body.menutable td .addItem span {
+  color: #369;
+  font-size: .9em;
+  cursor: pointer;
+}
+
+/* portlet header */
+.portlet.box > .portlet-title > .caption {
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 100px);
+}
+
+
+/* TOASTR */
+
+#toast-container>div {
+  opacity: .9;
+}
+
+
+/* MODAL */
+
+.modal .modal-header {
+  color: #fff;
+  background-color: #26a69a;
+}
+
+
+/* BLUE HEADER */
+
+#modal_client_edit.modal .modal-header {
+  background-color: #3598dc;
+}
+
+
+/* RED HEADER */
+
+#modal_stores.modal .modal-header {
+  background-color: #cb5a5e;
+}
+
+.tab-content>.tab-pane {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+
+/* crop image */
+
+.cropArea {
+  background: #E4E4E4;
+  overflow: hidden;
+  width: 180px;
+  height: 180px;
+  padding: 0;
+}
+
+img-crop {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden
+}
+
+img-crop canvas {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent
+}
+
+/* MENU */
+.option-content input.name {
+  width: 120px;
+}
+.option-content input.price {
+  width: 60px;
+  margin-right: 20px;
+}
+.option-content .optionHeader {
+  display: none;
+}
+.bootstrap-switch-container {
+ /*margin-left: 0 !important;*/
+}
+.option-content .form-group > div > span {
+  display: inline-block;
+  width: 90px;
+}
+
+.page-content { /*background color below search bar*/
+	background-color:#F4F4F4 !important; /*override bootstrap background color*/
+}
+
+.page-breadcrumb {
+	/*background-color:white;*/
+}
+
+.table {
+	vertical-align:middle;
+}
+
+.link {
+	color: #606060;
+}
+
+tbody td {
+	padding-top: 18px;
+    text-align:center;
+}
+
+.page-header.navbar .page-logo {
+	background: white;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th { /*center ID, store name, date, and menu in restaurants table*/
+    vertical-align: middle;
+}
+
+td.ng-binding { /*center "Dates Created" in table*/
+    margin: 0 auto;
+    width: 114px;
+}
+
+.portlet.box.blue-hoki { /*center "Restaurants" table*/
+    max-width: 730px; /*make sure it's still responsive*/
+    margin: 0 auto;
+	background-color:#f15a29;
+	border: none;
+	-webkit-box-shadow: 0px 0px 5px 1px rgba(217,217,217,1);
+-moz-box-shadow: 0px 0px 5px 1px rgba(217,217,217,1);
+box-shadow: 0px 0px 5px 1px rgba(217,217,217,1);
+}
+
+#restaurant_banner {
+    background-color: #c4c4c4 !important; /*override bootstrap and make "Restaurant" bar grey instead of navy*/
+}
+
+/*Top left DayGot logo*/
+.page-header.navbar .page-logo .logo-default {
+	margin:0px;
+	margin-top:3px;
+}
+
+.page-sidebar .page-sidebar-menu > li > a > i[class^="icon-"], .page-sidebar .page-sidebar-menu > li > a > i[class*="icon-"] {
+    color: white;
+}
+
+/*buttons on left side of page (Ex: Dashboard, etc.)*/
+.page-sidebar .page-sidebar-menu > li > a {
+	background-color: #606060;
+}
+
+.page-sidebar .page-sidebar-menu > li > a:hover { /*lighten buttons on left side on mouse hover*/
+	background-color: #1398ea;
+}
+
+.page-sidebar .page-sidebar-menu > li.active > a { /*active sidebar links*/
+	background-color:#1398ea;
+}
+
+.page-sidebar.navbar-collapse {
+	background-color: #606060;
+}
+
+/*background*/
+.page-boxed .page-container {
+	background-color: #606060;
+}
+
+/*Center top nav bar under title (Ex: "Home > dashboard, etc.")*/
+ .page-bar.ng-scope, .page-bar {
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f15a29+1,f7941e+100 */
+background: #f15a29; /* Old browsers */
+background: -moz-linear-gradient(left,  #f15a29 1%, #f7941e 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #f15a29 1%,#f7941e 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #f15a29 1%,#f7941e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f15a29', endColorstr='#f7941e',GradientType=1 ); /* IE6-9 */
+}
+
+.page-bar { /*Curve the corners of the page bar and override the bootstrap*/
+	-webkit-border-radius: 0px !important; /*curve corners*/
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+}
+
+
+/*White text in top center nav bar*/
+.page-bar .page-breadcrumb > li > a, .page-bar .page-breadcrumb > li > span {
+color:white;
+}
+
+/*"Stores" window on client dashboard (click a restaurant name to get here)*************************************************************/
+
+.portlet.box.red > .portlet-title { 
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f15a29+1,f7941e+100 */
+	background: #f15a29; /* Old browsers */
+	background: -moz-linear-gradient(left,  #f15a29 1%, #f7941e 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left,  #f15a29 1%,#f7941e 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,  #f15a29 1%,#f7941e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f15a29', endColorstr='#f7941e',GradientType=1 ); /* IE6-9 */
+}
+
+.portlet.box.red { /*"Stores" content on dashboard (click a restaurant name to get here)*/
+	border:none;
+}
+
+table.table.table-condensed.table-bordered.table-striped.ng-scope.ng-table { /*"Stores" table on dashboard (click a restaurant name to get here)*/
+	margin-bottom:7px; /*line up container bottom with "client app info" container bottom*/
+}
+
+td#stores_add_new_table { /*make "Action" column in table smaller*/
+	width:36px;
+	padding-right:9px; /*push trash can icon to left (icons don't center with just "margin:0 auto" because "edit" icon includes negative space on left*/
+}
+
+#center_icons { /*center edit and trash can icons in table*/
+    margin: 0 auto;
+    width: 39px;
+}
+
+/*my restaurants > [click a store name] > click blue button next to client/app info > client/app info************************************/
+
+#client_app_name_container { /*remove blue line underneath "Client/App Info" header in pop-up*/
+	border-top:none;
+}
+
+#client_app_info_footer_buttons { /*move "close" and "save changes" buttons to bottom of pop-up window*/
+	clear:both;
+}
+
+#client_app_info_popup_container { /*keep contents in pop-up window*/
+	overflow:hidden;
+}
+
+#client_app_info_body_contents { /*contains fields in white container underneath pop-up window header*/
+	 margin: 0 auto;
+ 	 width: 425px;
+}
+
+#client_app_name_container, #client_app_login_info_container, #client_app_info_agent_container, #client_app_info_is_live_container {
+	width: 420px; /*sets the width of the container containing each field. This effects the blue line length.*/
+}
+
+#home_icon {
+	color:#999 !important;
+}
+
+/*"My Restaurants" page*****************************************************************************************/
+
+button.btn.btn-info { /*edit buttons*/
+	background-color:#1398ea;
+}
+
+/*create a restaurant > client info setup***********************************************************************/
+
+.portlet.box.blue { /*remove blue border around pop-up box for "create a restaurant"*/
+    border: none;
+}
+
+.form-wizard .steps > li.active > a.step .number { /*Circular gradient behind step numbers*/
+background: #f15a29; /* Old browsers */
+background: -moz-linear-gradient(left,  #f15a29 1%, #f7941e 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #f15a29 1%,#f7941e 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #f15a29 1%,#f7941e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f15a29', endColorstr='#f7941e',GradientType=1 ); /* IE6-9 */
+}
+
+.portlet.box.blue > .portlet-title { /*gradient behind "Create A Restaurant - Step 1 of 4" pop-up*/
+background: #f15a29; /* Old browsers */
+background: -moz-linear-gradient(left,  #f15a29 1%, #f7941e 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #f15a29 1%,#f7941e 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #f15a29 1%,#f7941e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f15a29', endColorstr='#f7941e',GradientType=1 ); /* IE6-9 */
+}
+
+span.desc { /*"client info" - "confirm" text color for steps that aren't active/selected*/
+    color: #ccc;
+}
+
+span.number { /*step numbers will be gray until selected (or that step is reached)*/
+    color: gray;
+}
+
+i.fa.fa-home { /*home icon*/
+    font-size: 25px;
+    margin-top: 3px;
+	color:white !important;
+}
+
+i.fa.fa-angle-right { /* ">" symbol in nav bar*/
+	color:white !important;
+}
+
+.form-group {
+    float: left;
+	width: 560px;
+}
+
+.col-sm-8 {
+    clear: both;
+}
+
+label.col-sm-4.control-label { /*"store name, login info, agent" text*/
+width:auto; /*Makes container scale to fit text. Container was originally too big and the text was not aligned properly to the left.*/
+padding-bottom:7px;
+}
+
+i.fa.fa-user { /*user icon*/
+    font-size: 25px;
+}
+
+div#bar { /*Small divider div underneath step 1-4 in "Create A Restaurant"*/
+    height: 1px;
+    background-color: #1398ea;
+}
+
+.col-md-offset-3.col-md-9 {
+    width: 454px;
+    /* margin: 0 auto; */
+    text-align: center;
+    padding: 0px;
+    /* border: 1040px; */
+}
+
+.col-sm-8 {
+    width: 418px;
+}
+
+@media screen and (max-width:990px) and (min-width:769px){ /*Keep "back" and "continue" buttons centered on smaller screen (990px wide)*/
+	.col-md-offset-3.col-md-9 {
+	margin: 0 auto;
+	}
+}
+
+@media screen and (max-width:768px) { /*Keep "back" and "continue" buttons centered on smaller screen*/
+	.col-md-offset-3.col-md-9 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 190px;
+	}
+}
+
+.centered_container { /*center content in pop-up*/
+    width: 341px; /*width must be sent before centering*/
+    margin: 0 auto; /*center content*/
+}
+
+/*create a restaurant > store info setup 1*********************************************************************************************************/
+
+span.input-group-addon {
+	width:110px;
+}
+
+.location-container { /*contains everything from above "Store business information" to the bottom of "delivery settings"*/
+    width: 590px;
+	width:490px;
+    margin: 0 auto; /*center*/
+}
+
+.business-hour { /*put "business hours" field into a straight line*/
+    width: 490px;
+    margin: 0 auto;
+	margin-bottom: 40px; /*apply spacing to bottom above "Menu Settings"*/
+}
+
+span.input-group-addon { /*remove padding inside of field text for drop-downs*/
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.form-group.row { /*set container width for Tax Rate, Food Preparation Time, and FPT applies up to*/
+   width: 655px;
+}
+
+#percent_sign, #min_food_prep, #min_delivery_wait, #items_fpt, #dollar_sign_delivery_fee { /*store business information units (see ID's)*/
+    width: 57px;
+}
+
+#tax_rate_field, #food_prep_field, #fpt_applies_field { /*make field input sections not as long for tax rate, food prep, ant fpt applies*/
+	width: 90px;
+}
+
+.col-sm-4 { /*space out fields/text for Tax Rate, Food Preparation Time, and FPT applies*/
+    clear: both; /*move to next line*/
+	margin-top: 20px;
+}
+
+#business_hours_drop_down {    
+	margin-bottom: 20px;
+}
+
+#fpt_applies_to_container { /*Contains "fpt applies to" text and fields. This adds space before the "Delivery Settings" text*/
+    margin-bottom: 20px;
+}
+
+/*create a restaurant > Store info setup II**************************************************************************************/
+
+.store_info_II_container { /*Container that centers everything*/
+    width: 309px;px;
+    margin: 0 auto;
+}
+
+input.form-control.ng-pristine.ng-untouched.ng-valid-email.ng-invalid.ng-invalid-required,input.form-control.ng-pristine.ng-untouched.ng-invalid.ng-invalid-required, #city_field {
+    width: 240px; /*contact email, contact phone, and city text entry field lengths*/
+}
+
+#state_field {
+width:67px; /*state text entry field length*/
+}
+
+.form-group.row {
+    width: 520px;
+}
+
+input.form-control.ng-pristine.ng-invalid.ng-invalid-required.ng-touched { /*spacing before "Address (required)" */
+    margin-bottom: 20px;
+}
+
+#contact_phone { /*move "contact phone" to next line (I created an id because editing the class would move a div on the dashboard) */
+	clear:both;
+}
+
+label { /*space out labels*/
+    margin-top: 20px;
+}
+
+#zip {
+margin-bottom:20px;
+}
+
+/*Create a Restaurant > Confirm*********************************************************************************************************************/
+
+.confirm_container { /*center content on "Confirm" pop-up screen (step 4)*/
+    width: 570px;
+    margin: 0 auto;
+}
+
+
+/*Dividers between buttons on far left side*/
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a, .page-sidebar .page-sidebar-menu > li > a {
+    border-top: 1px solid #1398ea;
+}
+
+.form .form-section {
+	border-bottom: 1px solid #1398ea;
+}
+
+/*my restaurants > edit > add new category > new category setting***********************************************************************************/
+
+.modal-header { /*pop-up window top banners*/ 
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f15a29+1,f7941e+100 */
+	background: #f15a29; /* Old browsers */
+	background: -moz-linear-gradient(left,  #f15a29 1%, #f7941e 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left,  #f15a29 1%,#f7941e 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,  #f15a29 1%,#f7941e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f15a29', endColorstr='#f7941e',GradientType=1 ); /* IE6-9 */
+	border:none;
+}
+
+
+#add_new_group_btn { /*add new group button*/
+    float: left !important; /*override default bootstrap button setting*/
+    margin: 15px;
+	margin-top: 0px;
+}
+
+button.fa.fa-edit.pull-right.btn.btn-primary, button.fa.fa-trash.pull-right.btn.btn-danger { /*edit button and trash can button*/
+	margin-top:9px;
+}
+
+#new_category_window_body { /*body of window*/
+	overflow:hidden; /*keeps fields & contents from overflowing out of the window when it gets very small*/
+}
+
+.form_group_container { /*contains the two fields - "category name" and "category group"*/
+	float:none;
+    width: 417px;
+    margin: 0 auto;
+	overflow:hidden; /*don't let divider lines run out of window*/
+}
+
+#category_group_setting_window_body {
+	overflow:hidden; /*keeps fields & contents from overflowing out of the window when it gets very small*/
+}
+
+#category_group_form_container {
+	float:none;
+    width: 417px;
+    margin: 0 auto;
+	overflow:hidden; /*don't let divider lines run out of window*/
+}
+
+#category_name_container, #category_group_form_container {
+	border-top:none; /*remove blue line at very top of pop-ups underneath window header*/
+}
+
+/*my restaurants > edit > menu setup > add new item > new item setting***********************************************************************/
+
+#new_item_settings_container { /*new item settings pop-up (fields "item name" - "image")*/
+ overflow: scroll;
+ width: 575px;
+ margin: 0 auto;
+ clear: both;
+ float: none;
+}
+
+#new_item_settings_item_name { /*remove divider line in pop-up underneath window header*/
+	border-top:none;
+}
+
+#new_item_settings_window {
+	overflow:hidden; /*keep contents in pop-up*/
+}
+
+/*my restaurants > [click restaurant name] > add new > new store info************************************************************************/
+
+#new_store_popup_container {
+	overflow-y:hidden;
+	overflow-x:scroll;
+}
+
+#menu_settings_container {
+	width: 520px;
+	margin-bottom:20px;
+}
+
+#tax_rate, #food_prep, #FPT, #allow_delivery {
+	width:200px;
+}
+
+#tax_rate {
+	margin-top:-5px;
+}
+
+#allow_delivery { /*holds all delivery information*/
+	width:520px;
+	padding-left:15px;
+}
+
+div#allow_delivery_container { /*inside of #allow_delivery*/
+	padding-left:0px;
+	padding-bottom:20px;
+}
+
+#contact_info_container {
+    padding-bottom: 30px;
+}
+
+#allow_delivery_header {
+	margin-top:-20px;
+}
+
+#zip_container {
+	margin-top: 0px;
+}
+
+.form .form-row-seperated .form-group { /*underlines*/
+	 border-top: 1px solid #1398ea;
+	 border-bottom:none;
+}
+
+#address_header, #store_login_header {
+	clear:both;
+}
+
+#store_login_header {
+	padding-top: 20px;
+}
+
+#store_id_header {
+	padding-top:20px;
+}
+
+#footer_buttons { /*prevent "close" and "save changes" buttons from moving up the right side*/
+	clear:both;
+}
+
+/*Resources page*******************************************************************************************/
+#tree_container {
+	width: 500px;
+	margin: 0 auto;
+}
+
+#tree_column {  /*between #tree_container and #tree_inner_container*/  
+	padding-left: 0px;
+}
+
+#tree_inner_container {
+	float: none;
+	margin: 0 auto;
+	width: 500px;
+}
+

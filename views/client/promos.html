@@ -1,0 +1,119 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+	Promotions</small>
+</h3>
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a href="#/dashboard.html">Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a href="#/restaurants.html">Restaurants</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a href="#/clientDashboard/{{clientId}}">Client Dashboard</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <a href="#">Promotions</a>
+    </li>
+  </ul>
+  
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet box blue-hoki">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-globe"></i>Manage Coupon Codes
+        </div>
+        <!-- cham, Call Form Wizard modal when 'Add New' button clicked -->
+        <!--<button class="pull-right btn btn-primary">Add New</button> -->
+        <button class="pull-right btn btn-primary" ng-click="editPromo(0)" data-target="#modal_promotion_add" data-toggle="modal">Add New</button>
+      </div>
+      <div class="portlet-body">
+        <table ng-table="promosTable" class="table table-condensed table-bordered table-striped">
+       {{$data}}
+         
+          <tr ng-repeat="row in $data">
+            <td data-title="'ID'" >{{row.promoId}}</td>
+            <td data-title="'Code'" >{{row.code}}</td>
+            <td data-title="'DC Type'" >{{row.discountType}}</td>
+            <td data-title="'DC Value'" >{{row.value}}</td>
+            <td data-title="'Exp. Date'">{{row.expDate}}</td>
+            <td data-title="'Thres'">{{row.thres}}</td>
+            <td data-title="'Action'">
+            <i class="fa fa-trash-o icon-lg pull-right" ng-click="deletePromo(row.promoId)"></i>
+            <i class="fa fa-edit icon-lg pull-right" ng-click="editPromo(row.promoId)"></i></td>
+            <td data-title="'Notify'"><button class="btn btn-primary" ng-click="pushNotify(row.promoId)">Push Notify</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+   </div>
+</div>
+
+<!--*************** MODAL Promotion ADD ***************-->
+<div id="modal_promotion_add" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">{{promo.promoId ? 'Edit' : 'New'}} Promotion Info</h4>
+      </div>
+      <div class="modal-body form">
+        <form action="#" class="form-horizontal form-row-seperated">
+          <div class="location-container">
+            <div class="form-group row">
+              <label class="col-sm-4 control-label">Promo Code (without space)</label>
+              <div class="col-sm-4">
+                <input type="text" ng-model="promo.code" class="form-control input-block-level code" /> 
+              </div>
+              <label class="col-sm-4 control-label">Expiration Date</label>
+              <div class="col-sm-4">
+                <input type="text" ng-model="promo.expDate" class="form-control input-block-level expDate" /> 
+              </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="value">Discount</label>
+                    <div class="input-group">
+                        <input name="value" type="number" step="any" class="form-control" ng-model="promo.value" placeholder="0" />
+                        <!--<span class="input-group-addon">%</span>-->
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                  <label for="discountType">Type</label>
+                  <select name="discountType" class="form-control" ng-model="promo.discountType">
+                      <option value="0">$ Fixed Amout</option>
+                      <option value="1">% from Order Amount</option>
+                  </select>
+                </div>
+                <div class="col-sm-4">
+                    <label for="thres">Min. Order Amt.</label>
+                    <div class="input-group">
+                        <input name="thres" type="number" class="form-control" ng-model="promo.thres" placeholder="1" />
+                        <!--<span class="input-group-addon">min</span>-->
+                    </div>
+                </div>
+                
+            </div>
+            
+          </div> <!--end of class="location-container"-->
+          
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="savePromo()"><i class="fa fa-check"></i> Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
